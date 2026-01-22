@@ -20,3 +20,17 @@ Nhập a, b. In ra số lớn hơn. Nếu bằng nhau in Bang nhau.
 
 4) Lớn nhất trong 3 số
 Nhập a, b, c. In ra số lớn nhất.
+
+/** -> đăng nhập
+username
+password (admin|12345678) -> ok
+-> validate ko duoc trong, do dai mat khau > 8 ki tu;
+nếu có lỗi xuất lỗi ra cho người dùng
+*/
+/** -> đăng ký
+username
+password (admin|12345678) -> ok
+email -> email hợp lệ
+-> validate ko duoc trong, do dai mat khau > 8 ki tu;
+nếu có lỗi xuất lỗi ra cho người dùng
+*/
