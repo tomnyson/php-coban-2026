@@ -1,6 +1,9 @@
 <?php
 session_start();
 echo session_id();
+echo "<pre>";
+var_dump($_SESSION);
+echo "</pre>";
 ?>
 <html>
 
@@ -29,28 +32,63 @@ echo session_id();
 $errors = [];
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     //isset -> check bien
-    if (isset($_POST['username']) && isset($_POST['password'])) {
-        if (strlen($_POST['username']) == 0) {
-            $errors['username'] = "username ko duoc trong";
+    if (
+        isset($_POST['password'])
+        && isset($_POST['name'])  && isset($_POST['email']) && isset($_POST['confirmPassword'])
+    ) {
+        if (strlen($_POST['name']) == 0) {
+            $errors['name'] = "name ko duoc trong";
         }
         if (strlen($_POST['password']) < 8) {
             $errors['password'] = "password phai lon 8 ki tu";
+        }
+        if (($_POST['password']) != $_POST['confirmPassword']) {
+
+            $errors['confirmPassword'] = "password cofirm ko chinh xac";
+        }
+        if (($_POST['email']) == "") {
+            $errors['email'] = "email khong duoc de trong";
+        }
+        if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+            $errors['email'] = "email khong dung dinh dang";
         }
         echo "<pre>";
         var_dump($errors);
         echo "</pre>";
         if (count($errors) == 0) {
             // xu ly dang nhap
-            if ($_POST['username'] == 'admin' && $_POST['password'] == '12345678') {
-                echo 'dang nhap thanh cong';
-                $_SESSION['login'] = true;
-                $_SESSION['username'] = 'admin';
-                header('location: wellcome.php');
-                exit;
+            /**
+             * b1.
+             */
+            if (!isset($_SESSION['users'])) {
+                $users = array();
+                array_push($users, array(
+                    'name' => $_POST['name'],
+                    'email' => $_POST['email'],
+                    'password' => $_POST['password'],
+                    'role' => 'user',
+                ));
+                $_SESSION['users'] = $users;
             } else {
-                echo 'khong thanh cong';
-                header('location: wellcome.php');
-                exit;
+                $users = $_SESSION['users'];
+                $isExist = false;
+                // tim kiem user da ton tai chua
+                foreach ($users as $user) {
+                    if ($user['email'] == $_POST['email']) {
+                        $isExist = true;
+                    }
+                }
+                if (!$isExist) {
+                    array_push($users, array(
+                        'name' => $_POST['name'],
+                        'email' => $_POST['email'],
+                        'password' => $_POST['password'],
+                        'role' => 'user',
+                    ));
+                    $_SESSION['users'] = $users;
+                } else {
+                    $errors['email'] = "email da duoc dang ky";
+                }
             }
         }
     }
@@ -61,10 +99,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
     <div class="container">
         <form method="POST" action="" class="form login_form">
-            <h5>Login Form</h5>
-            <input type="text" class="form-control" name="username" placeholder="nhập username" />
+            <h5>Dang ki tai khoan moi</h5>
+            <input type="text" class="form-control" name="name" placeholder="nhap ten" />
+            <input type="email" class="form-control" name="email" placeholder="nhập email cua ban" />
             <input type="password" class="form-control mt-2" name="password" placeholder="nhập password" />
-            <button type="submit" class="btn btn-primary  mt-2" name="action" value="action">Đăng nhập</button>
+            <input type="password" class="form-control" name="confirmPassword" placeholder="nhap lai password cua ban " />
+            <button type="submit" class="btn btn-primary  mt-2" name="action" value="action">Đăng ki</button>
+
             <?php
             foreach ($errors as $a) {
                 echo "<span class='error'>$a</span>";

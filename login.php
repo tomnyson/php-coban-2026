@@ -62,8 +62,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="container">
         <form method="POST" action="" class="form login_form">
             <h5>Login Form</h5>
-            <input type="text" class="form-control" name="username" placeholder="nhập username" />
-            <input type="password" class="form-control mt-2" name="password" placeholder="nhập password" />
+            <input type="text" class="form-control" name="username" placeholder="nhập ten tai khoan moi cua ban " />
+            <input type="email" class="form-control" name="username" placeholder="nhập email cua ban" />
+            <input type="password" class="form-control" name="username" placeholder="nhap password " />
+            <input type="password" class="form-control" name="username" placeholder="nhap lai password cua ban " />
             <button type="submit" class="btn btn-primary  mt-2" name="action" value="action">Đăng nhập</button>
             <?php
             foreach ($errors as $a) {
