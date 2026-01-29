@@ -99,12 +99,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
     <div class="container">
         <form method="POST" action="" class="form login_form">
-            <h5>Dang ki tai khoan moi</h5>
+            <h5>Đăng ký tài khoản mới</h5>
             <input type="text" class="form-control" name="name" placeholder="nhap ten" />
-            <input type="email" class="form-control" name="email" placeholder="nhập email cua ban" />
+            <input type="email" class="form-control mt-2" name="email" placeholder="nhập email cua ban" />
             <input type="password" class="form-control mt-2" name="password" placeholder="nhập password" />
-            <input type="password" class="form-control" name="confirmPassword" placeholder="nhap lai password cua ban " />
-            <button type="submit" class="btn btn-primary  mt-2" name="action" value="action">Đăng ki</button>
+            <input type="password" class="form-control mt-2" name="confirmPassword" placeholder="nhap lai password cua ban " />
+            <button type="submit" class="btn btn-primary  mt-2" name="action" value="action">Đăng ki</button> </br>
+            <a href="./login.php" class="mt-2">đã có tài khoản</a>
 
             <?php
             foreach ($errors as $a) {

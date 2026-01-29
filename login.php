@@ -26,6 +26,19 @@ echo session_id();
  * b2 kiem tra
  * b3 in ra so luong 
  */
+function checkLogin($userame, $password ) {
+    if(isset($_SESSION['users'])) {
+        $users = $_SESSION['users'];
+        foreach($users as $user) {
+            if($userame == $user['email'] && $password == $user['password']) {
+                return true;
+            }
+        }
+
+    }
+    return false;
+}
+
 $errors = [];
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     //isset -> check bien
@@ -41,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo "</pre>";
         if (count($errors) == 0) {
             // xu ly dang nhap
-            if ($_POST['username'] == 'admin' && $_POST['password'] == '12345678') {
+            if (checkLogin($_POST['username'],$_POST['password'] )) {
                 echo 'dang nhap thanh cong';
                 $_SESSION['login'] = true;
                 $_SESSION['username'] = 'admin';
@@ -63,10 +76,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <form method="POST" action="" class="form login_form">
             <h5>Login Form</h5>
             <input type="text" class="form-control" name="username" placeholder="nhập ten tai khoan moi cua ban " />
-            <input type="email" class="form-control" name="username" placeholder="nhập email cua ban" />
-            <input type="password" class="form-control" name="username" placeholder="nhap password " />
-            <input type="password" class="form-control" name="username" placeholder="nhap lai password cua ban " />
-            <button type="submit" class="btn btn-primary  mt-2" name="action" value="action">Đăng nhập</button>
+            <input type="password" class="form-control mt-2" name="password" placeholder="nhap password " />
+            <button type="submit" class="btn btn-primary mt-2" name="action" value="action">Đăng nhập</button> <br/>
+             <a href="./register.php" class="mt-2">chưa có tài khoản</a>
             <?php
             foreach ($errors as $a) {
                 echo "<span class='error'>$a</span>";
