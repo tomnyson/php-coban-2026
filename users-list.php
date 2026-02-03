@@ -16,16 +16,9 @@ session_start();
 </head>
 
 <body class="bg-light">
-  <nav class="navbar navbar-expand-lg bg-white border-bottom">
-    <div class="container">
-      <a class="navbar-brand fw-semibold" href="home.html">SimpleShop</a>
-      <div class="ms-auto d-flex gap-2">
-        <a class="btn btn-sm btn-outline-secondary" href="product-form.html">Add</a>
-        <a class="btn btn-sm btn-primary" href="cart.html">Cart</a>
-      </div>
-    </div>
-  </nav>
-
+  <?php
+  include "./includes/menu.php";
+  ?>
   <main class="py-5">
     <div class="container">
       <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
@@ -44,20 +37,19 @@ session_start();
        */
       $users = $_SESSION['users'];
       if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        if(isset($_POST['action'])) {
+        if (isset($_POST['action'])) {
           var_dump($_POST);
-           foreach ($users as $index => $user) {
+          foreach ($users as $index => $user) {
             var_dump($user);
-            if($user['email'] == $_POST['username']) {
+            if ($user['email'] == $_POST['username']) {
               echo "heree";
               unset($_SESSION['users'][$index]); // xoa mang session
+              sleep(1);
+              header("Location: " . $_SERVER['PHP_SELF']);
             }
-           }
+          }
         }
-
       }
-      echo "users";
-      var_dump($users);
       ?>
       <div class="card shadow-sm">
         <div class="table-responsive">
@@ -83,11 +75,11 @@ session_start();
                   <td><span class="badge text-bg-success"><?php echo $user['role'] ?? 'user' ?></span></td>
                   <td><span class="badge text-bg-success"><?php echo $user['status'] ?? 'active' ?></span></td>
                   <td class="text-end">
-                    <a class="btn btn-sm btn-outline-secondary" href="product-detail.html">View</a>
+                    <a class="btn btn-sm btn-outline-secondary" href="user-detail.php?email=<?= $user['email'] ?>">View</a>
                     <a class="btn btn-sm btn-outline-primary" href="product-form.html">Edit</a>
-                    <form method="POST" action="">
-                      <input type="hidden" name="username" value="<?php echo $user['email']; ?>"/>
-                      <button class="btn btn-sm btn-outline-danger" name="action" value="delete" type="submit">Delete</button>
+                    <form id="deleteForm" method="POST" action="">
+                      <input type="hidden" name="username" value="<?php echo $user['email']; ?>" />
+                      <button class="btn btn-sm btn-outline-danger" onclick="return deleteConfirm(event, '<?php echo $user['email']; ?>')" name="action" value="delete" type="submit">Delete</button>
                     </form>
 
                   </td>
@@ -104,6 +96,17 @@ session_start();
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
+  <script>
+    function deleteConfirm(event, username) {
+      var confirmed = confirm(`Do you want to delete acount ?" ${username}`);
+      if (!confirmed) {
+        event.preventDefault();
+        return false
+      }
+      return true;
+
+    }
+  </script>
 </body>
 
 </html>
