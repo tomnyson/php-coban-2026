@@ -34,3 +34,4 @@ email -> email hợp lệ
 -> validate ko duoc trong, do dai mat khau > 8 ki tu;
 nếu có lỗi xuất lỗi ra cho người dùng
 */
+
