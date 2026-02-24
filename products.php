@@ -1,6 +1,6 @@
 <?php
 session_start();
-if(!isset($_SESSION)) {
+if(!isset($_SESSION['products'])) {
 $_SESSION['products'] = [
   ["id"=>1,  "name"=>"A", "description"=>"Sản phẩm A",  "price"=>1000000, "image"=>"https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=60"],
   ["id"=>2,  "name"=>"B", "description"=>"Sản phẩm B",  "price"=>2000000, "image"=>"https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=800&q=60"],
