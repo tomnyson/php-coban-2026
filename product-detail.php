@@ -63,6 +63,10 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
             echo "<image width='400px' src='{$found['image']}'/>";
           }
           ?>
+          <form class="mt-2">
+            <input type="number" name="quantity"  placeholder="nhập số lượng" min="0"/>
+            <button type="submit" class="btn btn-primary">thêm vào giỏ </button>
+          </form>
           </div>
         </div>
       </div>
