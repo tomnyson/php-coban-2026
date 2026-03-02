@@ -35,3 +35,13 @@ email -> email hợp lệ
 nếu có lỗi xuất lỗi ra cho người dùng
 */
 
+
+
+Yêu cầu: dùng Session để lưu dữ liệu và quản lý theo template ở trên.
+chức năng 
+hiển thị danh sách 2đ
+ thêm  3đ
+ xoá  1đ
+sửa  2đ
+Upload image 1đ
+tìm kiếm 1đ
